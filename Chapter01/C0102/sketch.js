@@ -41,7 +41,7 @@ function draw() {
         
         fill(random(0,255), random(0,255), random(0,255));
 		ellipse(g_positionXArray[particle], g_positionYArray[particle], g_MassArray[particle] * 1000, g_MassArray[particle] * 1000);
-	}
+    }
 }
 
 function addNewParticle( positionX, positionY) {
@@ -49,7 +49,16 @@ function addNewParticle( positionX, positionY) {
 	g_positionXArray.push(positionX);
 	g_positionYArray.push(positionY);
 	g_velocityXArrat.push(0);
-	g_velocityYArrat.push(0);
+    g_velocityYArrat.push(0);
+    
+    if(g_MassArray.length > 1000)
+    {
+        g_MassArray.shift();
+        g_positionXArray.shift();
+        g_positionYArray.shift();
+        g_velocityXArrat.shift;
+        g_velocityYArrat.shift;
+    }
 }
 
 function mouseClicked() {
