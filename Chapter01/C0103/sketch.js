@@ -1,8 +1,8 @@
 // Mutual repulsion, with optional gravity
 
-var g_Particles = [];
-var g_NumParticles = 250;
-var maxRadius = 120
+var g_Particles = [];		// 파티클 배열
+var g_NumParticles = 250;	// 파티클 갯수
+var g_MaxRadius = 160;	 	//파티클 생성시 최대 반지름
 var clicked = false;
 var margin = 20
 var oldMouseX = 0
@@ -18,7 +18,7 @@ function setup() {
 	noStroke()
 
 	for (var i = 0; i < g_NumParticles; i++) {
-		var radius = random(0, maxRadius)
+		var radius = random(0, g_MaxRadius)
 		var angle = random(0, TWO_PI)
 		var rx = cos(angle) * radius + width / 2
 		var ry = sin(angle) * radius + height / 2
