@@ -1,7 +1,7 @@
 // Mutual repulsion, with optional gravity
 
-var myParticles = [];
-var nParticles = 250;
+var g_Particles = [];
+var g_NumParticles = 250;
 var maxRadius = 120
 var clicked = false;
 var margin = 20
@@ -17,23 +17,23 @@ function setup() {
 	createCanvas(800, 600);
 	noStroke()
 
-	for (var i = 0; i < nParticles; i++) {
+	for (var i = 0; i < g_NumParticles; i++) {
 		var radius = random(0, maxRadius)
 		var angle = random(0, TWO_PI)
 		var rx = cos(angle) * radius + width / 2
 		var ry = sin(angle) * radius + height / 2
 		// var rx = random(width/2 - radius, width/2 + radius);
 		// var ry = random(height/2 - radius, height/2 + radius);
-		myParticles[i] = new Particle(random(5, 7));
-		myParticles[i].set(rx, ry);
+		g_Particles[i] = new Particle(random(5, 7));
+		g_Particles[i].set(rx, ry);
 	}
 }
 
 
 function keyPressed() {
-	for (var i = 0; i < myParticles.length; i++) {
-		myParticles[i].px = random(width);
-		myParticles[i].py = random(height);
+	for (var i = 0; i < g_Particles.length; i++) {
+		g_Particles[i].px = random(width);
+		g_Particles[i].py = random(height);
 	}
 }
 
@@ -54,14 +54,14 @@ function draw() {
 	var mouseMutualRepulsionAmount = 500;
 
 
-	for (var i = 0; i < myParticles.length; i++) {
-		var ithParticle = myParticles[i];
+	for (var i = 0; i < g_Particles.length; i++) {
+		var ithParticle = g_Particles[i];
 		var px = ithParticle.px;
 		var py = ithParticle.py;
 
 
 		for (var j = 0; j < i; j++) {
-			var jthParticle = myParticles[j];
+			var jthParticle = g_Particles[j];
 			var qx = jthParticle.px;
 			var qy = jthParticle.py;
 
@@ -104,19 +104,19 @@ function draw() {
 
 
 	}
-	for (var i = 0; i < myParticles.length; i++) {
-		myParticles[i].bPeriodicBoundaries = false;
-		myParticles[i].bElasticBoundaries = true;
+	for (var i = 0; i < g_Particles.length; i++) {
+		g_Particles[i].bPeriodicBoundaries = false;
+		g_Particles[i].bElasticBoundaries = true;
 
 		// var distanceFromCenter = getDistance(width/2, height/2, myParticles[i].px, myParticles[i].py)
 		// if(distanceFromCenter <= maxRadius ){
 		//   myParticles[i].update();
 		// } // update all locations
-		myParticles[i].update();
+		g_Particles[i].update();
 	}
 
-	for (var i = 0; i < myParticles.length; i++) {
-		myParticles[i].render(); // draw all particles
+	for (var i = 0; i < g_Particles.length; i++) {
+		g_Particles[i].render(); // draw all particles
 	}
 
 	fill(200, 200, 200);
@@ -228,10 +228,11 @@ function Particle(size) {
 			clicked = true
 			var size = (this.size + log(abs(this.vx) * 50)) * factor
 		}
-		var opacity = map(size, 0, 40, 100, 255)
+
+		var opacity = map(size, 0, 40, 100, 255);
 
 		// var opacity = map(size, 0, 100, 3, 1)
-		fill(132, 0, 248, opacity)
+		fill(132, 0, 248, opacity);
 
 		ellipse(this.px, this.py, size, size);
 	}
